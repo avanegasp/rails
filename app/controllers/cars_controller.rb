@@ -1,16 +1,26 @@
 class CarsController < ApplicationController
 
   def index
-    render plain: "Llegaste al Cars Index"
+    @cars = Car.all
   end
 
   def new
-    render 'cars/new'
+
+  end
+
+  def create
+    Car.create(car_params)
+    redirect_to '/cars'
   end
 
   def show
-    render plain: "Llegaste al show"
+    @car = Car.find(params[:id])
   end
+
+  private
+    def car_params
+      params.require(:car).permit(:name)
+    end
 
 
 
